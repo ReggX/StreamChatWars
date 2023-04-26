@@ -1,0 +1,229 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Snapshot to restore runtime data after program restart.",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "description": "Path to this schema",
+      "type": "string"
+    },
+    "timestamp": {
+      "description": "UTC timestamp when this snapshot was created",
+      "type": "string"
+    },
+    "teams": {
+      "description": "Mapping of team name to team data",
+      "type": "object",
+      "patternProperties": {
+        "^.+$": {
+          "description": "Team snapshot data",
+          "type": "object",
+          "properties": {
+            "members": {
+              "description": "List of team members",
+              "type": "array",
+              "items": {
+                "description": "team member, all lowercase",
+                "type": "string",
+                "pattern": "^[a-z0-9_]+$"
+              }
+            },
+            "whitelist": {
+              "description": "User whitelist",
+              "type": "object",
+              "properties": {
+                "users": {
+                  "description": "List of usernames added to whitelist",
+                  "type": "array",
+                  "items": {
+                    "description": "username, all lowercase",
+                    "type": "string",
+                    "pattern": "^[a-z0-9_]+$"
+                  }
+                },
+                "groups": {
+                  "$ref": "#/$defs/groups"
+                }
+              },
+              "additionalProperties": false
+            },
+            "blacklist": {
+              "description": "User blacklist",
+              "type": "object",
+              "properties": {
+                "users": {
+                  "description": "List of usernames added to blacklist",
+                  "type": "array",
+                  "items": {
+                    "description": "username, all lowercase",
+                    "type": "string",
+                    "pattern": "^[a-z0-9_]+$"
+                  }
+                },
+                "groups": {
+                  "$ref": "#/$defs/groups"
+                }
+              },
+              "additionalProperties": false
+            },
+            "macros": {
+              "description": "Mapping of macro name to macro data",
+              "type": "object",
+              "patternProperties": {
+                "^[a-z0-9_]+$": {
+                  "description": "List of Verb Parameter objects",
+                  "type": "array",
+                  "items": {
+                    "description": "Verb Parameter object",
+                    "type": "object",
+                    "properties": {
+                      "key": {
+                        "description": "Key in Actionset's key_dict",
+                        "type": "string"
+                      },
+                      "delay": {
+                        "description": "Delay before pressing this key in milliseconds",
+                        "type": "integer"
+                      },
+                      "duration": {
+                        "description": "Duration of key press in milliseconds",
+                        "type": "integer"
+                      },
+                      "min_time": {
+                        "description": "Minimum duration of action in milliseconds",
+                        "type": "integer"
+                      },
+                      "max_time": {
+                        "description": "Maximum (delay+duration) of action in milliseconds",
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "key",
+                      "delay",
+                      "duration",
+                      "min_time",
+                      "max_time"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "teams"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "items": {
+      "description": "channel name, all lowercase, prefixed with #",
+      "type": "string",
+      "pattern": "^#[a-z0-9_]+$"
+    },
+    "groups": {
+      "description": "Mapping of groups to relevant channels",
+      "type": "object",
+      "properties": {
+        "$broadcaster": {
+          "description": "Special group $broadcaster",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/items"
+          }
+        },
+        "$mods": {
+          "description": "Special group $mods",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/items"
+          }
+        },
+        "$vips": {
+          "description": "Special group $vips",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/items"
+          }
+        },
+        "$subs": {
+          "description": "Special group $subs",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/items"
+          }
+        },
+        "$tier3subs": {
+          "description": "Special group $tier3subs",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/items"
+          }
+        },
+        "$tier2subs": {
+          "description": "Special group $tier2subs",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/items"
+          }
+        },
+        "$tier1subs": {
+          "description": "Special group $tier1subs",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/items"
+          }
+        },
+        "$partners": {
+          "description": "Special group $partners",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/items"
+          }
+        },
+        "$founders": {
+          "description": "Special group $founders",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/items"
+          }
+        },
+        "$staff": {
+          "description": "Special group $staff",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/items"
+          }
+        },
+        "$prime": {
+          "description": "Special group $prime",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/items"
+          }
+        },
+        "$turbo": {
+          "description": "Special group $turbo",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/items"
+          }
+        },
+        "$users": {
+          "description": "Special group $users",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/items"
+          }
+        }
+      }
+    }
+  }
+}

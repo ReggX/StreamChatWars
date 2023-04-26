@@ -1,0 +1,2 @@
+# This file contains all build tools only
+pyinstaller==5.10.1

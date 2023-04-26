@@ -1,0 +1,81 @@
+{
+  "$schema": "../schema/config_schema.json",
+  "config_name": "Divekick for Monthly Madness",
+  "events": {
+    "file_events": {
+      "enabled": true
+    }
+  },
+  "operators": [
+    "$broadcaster",
+    "$mods[nagzz21]",
+    "reggx"
+  ],
+  "irc": {
+    "host": "irc.chat.twitch.tv",
+    "port": 6697,
+    "message_interval": 1
+  },
+  "sessionlog": {
+    "enable_chatlog": true,
+    "enable_consolelog": true
+  },
+  "teams": [
+    {
+      "type": "PredictionBlue",
+      "name": "Faith",
+      "queue_length": 10,
+      "hidden": false,
+      "joinable": true,
+      "leavable": false,
+      "use_random_inputs": true,
+      "channels": [
+        "nagzz21",
+        "reggx"
+      ],
+      "user_whitelist": [
+      ],
+      "user_blacklist": [
+      ],
+      "actionset": {
+        "type": "Divekick_KB",
+        "doc_url": "https://gist.github.com/ReggX/f4eae6c0c54cacd405f9e35dd7207499",
+        "action_prefix": "+",
+        "player_index": 0,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33001
+        }
+      }
+    },
+    {
+      "type": "PredictionPink",
+      "name": "NoFaith",
+      "queue_length": 10,
+      "hidden": false,
+      "joinable": true,
+      "leavable": false,
+      "use_random_inputs": true,
+      "channels": [
+        "nagzz21",
+        "reggx"
+      ],
+      "user_whitelist": [
+      ],
+      "user_blacklist": [
+      ],
+      "actionset": {
+        "type": "Divekick_KB",
+        "doc_url": "https://gist.github.com/ReggX/f4eae6c0c54cacd405f9e35dd7207499",
+        "action_prefix": "+",
+        "player_index": 1,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33002
+        }
+      }
+    }
+  ]
+}

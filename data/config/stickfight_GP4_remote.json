@@ -1,0 +1,135 @@
+{
+  "$schema": "../schema/config_schema.json",
+  "config_name": "Stick Fight, 4 remote Gamepad players",
+  "events": {
+    "file_events": {
+      "enabled": true
+    }
+  },
+  "operators": [
+    "$broadcaster",
+    "reggx"
+  ],
+  "irc": {
+    "host": "irc.chat.twitch.tv",
+    "port": 6697,
+    "message_interval": 3,
+    "connection_timeout": 10,
+    "join_rate_limit_amount": 18,
+    "join_rate_limit_time": 11
+  },
+  "sessionlog": {
+    "enable_chatlog": true,
+    "enable_consolelog": true
+  },
+  "teams": [
+    {
+      "type": "Balancing",
+      "name": "Yellow",
+      "queue_length": 10,
+      "hidden": false,
+      "joinable": true,
+      "leavable": true,
+      "use_random_inputs": true,
+      "channels": [
+        "reggx"
+      ],
+      "user_whitelist": [
+      ],
+      "user_blacklist": [
+      ],
+      "actionset": {
+        "type": "StickFight_GP",
+        "doc_url": "",
+        "action_prefix": "+",
+        "player_index": 0,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33001
+        }
+      }
+    },
+    {
+      "type": "Balancing",
+      "name": "Blue",
+      "queue_length": 10,
+      "hidden": false,
+      "joinable": true,
+      "leavable": true,
+      "use_random_inputs": true,
+      "channels": [
+        "reggx"
+      ],
+      "user_whitelist": [
+      ],
+      "user_blacklist": [
+      ],
+      "actionset": {
+        "type": "StickFight_GP",
+        "doc_url": "",
+        "action_prefix": "+",
+        "player_index": 1,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33002
+        }
+      }
+    },
+    {
+      "type": "Balancing",
+      "name": "Red",
+      "queue_length": 10,
+      "hidden": false,
+      "joinable": true,
+      "leavable": true,
+      "use_random_inputs": true,
+      "channels": [
+        "reggx"
+      ],
+      "user_whitelist": [
+      ],
+      "user_blacklist": [
+      ],
+      "actionset": {
+        "type": "StickFight_GP",
+        "doc_url": "",
+        "action_prefix": "+",
+        "player_index": 2,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33003
+        }
+      }
+    },
+    {
+      "type": "Balancing",
+      "name": "Green",
+      "queue_length": 10,
+      "hidden": false,
+      "joinable": true,
+      "leavable": true,
+      "use_random_inputs": true,
+      "channels": [
+        "reggx"
+      ],
+      "user_whitelist": [
+      ],
+      "user_blacklist": [
+      ],
+      "actionset": {
+        "type": "StickFight_GP",
+        "doc_url": "",
+        "action_prefix": "+",
+        "player_index": 3,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33004
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,197 @@
+{
+  "$schema": "../schema/config_schema.json",
+  "config_name": "Splody, 10 remote Gamepad players",
+  "events": {
+    "file_events": {
+      "enabled": true
+    }
+  },
+  "operators": [
+    "$broadcaster",
+    "reggx"
+  ],
+  "irc": {
+    "host": "irc.chat.twitch.tv",
+    "port": 6697,
+    "message_interval": 3,
+    "connection_timeout": 10,
+    "join_rate_limit_amount": 18,
+    "join_rate_limit_time": 11
+  },
+  "sessionlog": {
+    "enable_chatlog": true,
+    "enable_consolelog": true
+  },
+  "teams": [
+    {
+      "type": "Balancing",
+      "name": "Team_0",
+      "use_random_inputs": true,
+      "channels": [
+        "reggx"
+      ],
+      "actionset": {
+        "type": "Splody_GP",
+        "player_index": 0,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33000
+        }
+      }
+    },
+    {
+      "type": "Balancing",
+      "name": "Team_1",
+      "use_random_inputs": true,
+      "channels": [
+        "reggx"
+      ],
+      "actionset": {
+        "type": "Splody_GP",
+        "player_index": 1,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33001
+        }
+      }
+    },
+    {
+      "type": "Balancing",
+      "name": "Team_2",
+      "use_random_inputs": true,
+      "channels": [
+        "reggx"
+      ],
+      "actionset": {
+        "type": "Splody_GP",
+        "player_index": 2,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33002
+        }
+      }
+    },
+    {
+      "type": "Balancing",
+      "name": "Team_3",
+      "use_random_inputs": true,
+      "channels": [
+        "reggx"
+      ],
+      "actionset": {
+        "type": "Splody_GP",
+        "player_index": 3,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33003
+        }
+      }
+    },
+    {
+      "type": "Balancing",
+      "name": "Team_4",
+      "use_random_inputs": true,
+      "channels": [
+        "reggx"
+      ],
+      "actionset": {
+        "type": "Splody_GP",
+        "player_index": 4,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33004
+        }
+      }
+    },
+    {
+      "type": "Balancing",
+      "name": "Team_5",
+      "use_random_inputs": true,
+      "channels": [
+        "reggx"
+      ],
+      "actionset": {
+        "type": "Splody_GP",
+        "player_index": 5,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33005
+        }
+      }
+    },
+    {
+      "type": "Balancing",
+      "name": "Team_6",
+      "use_random_inputs": true,
+      "channels": [
+        "reggx"
+      ],
+      "actionset": {
+        "type": "Splody_GP",
+        "player_index": 6,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33006
+        }
+      }
+    },
+    {
+      "type": "Balancing",
+      "name": "Team_7",
+      "use_random_inputs": true,
+      "channels": [
+        "reggx"
+      ],
+      "actionset": {
+        "type": "Splody_GP",
+        "player_index": 7,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33007
+        }
+      }
+    },
+    {
+      "type": "Balancing",
+      "name": "Team_8",
+      "use_random_inputs": true,
+      "channels": [
+        "reggx"
+      ],
+      "actionset": {
+        "type": "Splody_GP",
+        "player_index": 8,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33008
+        }
+      }
+    },
+    {
+      "type": "Balancing",
+      "name": "Team_9",
+      "use_random_inputs": true,
+      "channels": [
+        "reggx"
+      ],
+      "actionset": {
+        "type": "Splody_GP",
+        "player_index": 9,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33009
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "$schema": "../schema/config_schema.json",
+  "config_name": "Stick Fight for Monthly Madness",
+  "events": {
+    "file_events": {
+      "enabled": true
+    }
+  },
+  "operators": [
+    "$broadcaster",
+    "reggx"
+  ],
+  "irc": {
+    "host": "irc.chat.twitch.tv",
+    "port": 6697,
+    "message_interval": 1,
+    "connection_timeout": 10,
+    "join_rate_limit_amount": 18,
+    "join_rate_limit_time": 11
+  },
+  "sessionlog": {
+    "enable_chatlog": true,
+    "enable_consolelog": true
+  },
+  "teams": [
+    {
+      "type": "PredictionBlue",
+      "name": "Faith",
+      "queue_length": 10,
+      "hidden": false,
+      "joinable": false,
+      "leavable": false,
+      "use_random_inputs": true,
+      "channels": [
+        "nagzz21",
+        "reggx"
+      ],
+      "user_whitelist": [
+      ],
+      "user_blacklist": [
+      ],
+      "actionset": {
+        "type": "StickFight_GP",
+        "doc_url": "https://gist.github.com/ReggX/787dbc0a920ecb92a02a27199e623ca9",
+        "action_prefix": "+",
+        "player_index": 1,
+        "allow_changing_macros": true,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33001
+        }
+      }
+    },
+    {
+      "type": "PredictionPink",
+      "name": "NoFaith",
+      "queue_length": 10,
+      "hidden": false,
+      "joinable": false,
+      "leavable": false,
+      "use_random_inputs": true,
+      "channels": [
+        "nagzz21",
+        "reggx"
+      ],
+      "user_whitelist": [
+      ],
+      "user_blacklist": [
+      ],
+      "actionset": {
+        "type": "StickFight_GP",
+        "doc_url": "https://gist.github.com/ReggX/787dbc0a920ecb92a02a27199e623ca9",
+        "action_prefix": "+",
+        "player_index": 2,
+        "allow_changing_macros": true,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33002
+        }
+      }
+    },
+    {
+      "type": "PredictionNone",
+      "name": "NoBet",
+      "queue_length": 10,
+      "hidden": false,
+      "joinable": false,
+      "leavable": false,
+      "use_random_inputs": true,
+      "channels": [
+        "nagzz21",
+        "reggx"
+      ],
+      "user_whitelist": [
+      ],
+      "user_blacklist": [
+      ],
+      "actionset": {
+        "type": "StickFight_GP",
+        "doc_url": "https://gist.github.com/ReggX/787dbc0a920ecb92a02a27199e623ca9",
+        "action_prefix": "+",
+        "player_index": 3,
+        "allow_changing_macros": true,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33003
+        }
+      }
+    },
+    {
+      "type": "RandomOnly",
+      "name": "Random",
+      "queue_length": 10,
+      "hidden": true,
+      "joinable": false,
+      "leavable": false,
+      "use_random_inputs": true,
+      "channels": [
+        "nagzz21",
+        "reggx"
+      ],
+      "user_whitelist": [
+      ],
+      "user_blacklist": [
+      ],
+      "actionset": {
+        "type": "StickFight_GP",
+        "doc_url": "https://gist.github.com/ReggX/787dbc0a920ecb92a02a27199e623ca9",
+        "action_prefix": "+",
+        "player_index": 0,
+        "allow_changing_macros": true,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33004
+        }
+      }
+    }
+  ]
+}

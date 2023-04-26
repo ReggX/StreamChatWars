@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Collection of data to be used in Actionset macros",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "description": "Path to this schema",
+      "type": "string"
+    },
+    "name": {
+      "description": "Name of the macro collection, can be different from filename",
+      "type": "string"
+    },
+    "macros": {
+      "description": "Mapping of macro name to macro data",
+      "type": "object",
+      "patternProperties": {
+        "^[a-z0-9_]+$": {
+          "description": "List of Verb Parameter objects",
+          "type": "array",
+          "items": {
+            "description": "Verb Parameter object",
+            "type": "object",
+            "properties": {
+              "key": {
+                "description": "Key in Actionset's key_dict",
+                "type": "string"
+              },
+              "delay": {
+                "description": "Delay before pressing this key in milliseconds",
+                "type": "integer"
+              },
+              "duration": {
+                "description": "Duration of key press in milliseconds",
+                "type": "integer"
+              },
+              "min_time": {
+                "description": "Minimum duration of action in milliseconds",
+                "type": "integer"
+              },
+              "max_time": {
+                "description": "Maximum (delay+duration) of action in milliseconds",
+                "type": "integer"
+              },
+              "input_type": {
+                "description": "Type of input (1=press; 0=release; -1=hold)",
+                "type": "integer",
+                "enum": [
+                  -1,
+                  0,
+                  1
+                ]
+              }
+            },
+            "required": [
+              "key",
+              "delay",
+              "duration",
+              "min_time",
+              "max_time"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "name",
+    "macros"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "../schema/macro_schema.json",
+  "name": "Test Macros",
+  "macros": {
+    "superleft": [
+      {
+        "key": "left",
+        "delay": 0,
+        "duration": 1000,
+        "min_time": 1,
+        "max_time": 1000
+      }
+    ],
+    "leftright": [
+      {
+        "key": "left",
+        "delay": 0,
+        "duration": 100,
+        "min_time": 1,
+        "max_time": 1000
+      },
+      {
+        "key": "right",
+        "delay": 100,
+        "duration": 100,
+        "min_time": 1,
+        "max_time": 1000
+      }
+    ]
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "$schema": "../schema/config_schema.json",
+  "config_name": "TowerFall Ascension for Monthly Madness (Test)",
+  "events": {
+    "file_events": {
+      "enabled": true
+    },
+    "hotkeys": {
+      "failsafe": "Shift+Backspace",
+      "accept_input": "F13",
+      "random_action": "F14",
+      "reset_teams": "F15",
+      "random_delay_plus": "F17",
+      "random_delay_minus": "F18"
+    },
+    "max_delay_random": 500,
+    "step_delay_random": 5
+  },
+  "commands": {
+    "prefix": "?",
+    "mode": "all"
+  },
+  "operators": [
+    "$broadcaster",
+    "reggx"
+  ],
+  "sessionlog": {
+    "enable_chatlog": true,
+    "enable_consolelog": true,
+    "enable_channelpointlog": true
+  },
+  "irc": {
+    "host": "irc.chat.twitch.tv",
+    "port": 6697,
+    "message_interval": 1,
+    "connection_timeout": 10,
+    "join_rate_limit_amount": 18,
+    "join_rate_limit_time": 11
+  },
+  "default_team_data": {
+    "type": "Balancing",
+    "queue_length": 10,
+    "hidden": false,
+    "joinable": false,
+    "leavable": false,
+    "exclusive": true,
+    "use_random_inputs": true,
+    "spam_protection": true,
+    "channels": [
+      "reggx",
+      "nagzz21"
+    ],
+    "user_whitelist": [],
+    "user_blacklist": [],
+    "actionset": {
+      "type": "TowerFall_GP",
+      "doc_url": "https://gist.github.com/ReggX/f2c989b007e10f6519fc0292ccc743e3",
+      "action_prefix": "+",
+      "allow_changing_macros": false,
+      "input_server": {
+        "type": "remote",
+        "host": "192.168.178.40"
+      }
+    }
+  },
+  "teams": [
+    {
+      "type": "RandomOnly",
+      "name": "Bots",
+      "hidden": true,
+      "joinable": false,
+      "leavable": false,
+      "user_whitelist": [
+        "suitwo"
+      ],
+      "actionset": {
+        "type": "TowerFall_KB",
+        "player_index": 0,
+        "input_server": {
+          "port": 33000
+        }
+      }
+    },
+    {
+      "name": "Faith",
+      "actionset": {
+        "player_index": 0,
+        "input_server": {
+          "port": 33001
+        }
+      }
+    },
+    {
+      "name": "NoFaith",
+      "actionset": {
+        "player_index": 1,
+        "input_server": {
+          "port": 33002
+        }
+      }
+    },
+    {
+      "name": "NoBet",
+      "actionset": {
+        "player_index": 2,
+        "input_server": {
+          "port": 33003
+        }
+      }
+    }
+  ]
+}

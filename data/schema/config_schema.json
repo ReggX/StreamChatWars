@@ -1,0 +1,1343 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Collection of configuration settings for StreamChatWars",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "description": "Path to this schema",
+      "type": "string"
+    },
+    "config_name": {
+      "description": "Human readable name of this configuration, doesn't have to be unique to all other config files",
+      "type": "string"
+    },
+    "events": {
+      "description": "Collection of settings related to events.",
+      "type": "object",
+      "properties": {
+        "file_events": {
+          "description": "Collection of settings related to file events.",
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "description": "Should files in the event folder influence the behaviour of StreamChatWars?",
+              "type": "boolean",
+              "default": false
+            },
+            "path": {
+              "description": "Location of the file event folder, leave empty to use default temp directory.",
+              "type": "string",
+              "default": ""
+            }
+          },
+          "additionalProperties": false
+        },
+        "hotkeys": {
+          "description": "Collection of global hotkey sequences, leave blank to disable.",
+          "type": "object",
+          "properties": {
+            "failsafe": {
+              "description": "Global hotkey to abort execution in any context, leave blank to disable.",
+              "type": "string",
+              "default": "Shift+Backspace"
+            },
+            "accept_input": {
+              "description": "Global hotkey to toggle input parsing, leave blank to disable.",
+              "type": "string",
+              "default": ""
+            },
+            "random_action": {
+              "description": "Global hotkey to toggle random actions, leave blank to disable.",
+              "type": "string",
+              "default": ""
+            },
+            "reset_teams": {
+              "description": "Global hotkey to reset teams, leave blank to disable.",
+              "type": "string",
+              "default": ""
+            },
+            "random_delay_plus": {
+              "description": "Global hotkey to increase random action delay, leave blank to disable.",
+              "type": "string",
+              "default": ""
+            },
+            "random_delay_minus": {
+              "description": "Global hotkey to decrease random action delay, leave blank to disable.",
+              "type": "string",
+              "default": ""
+            }
+          },
+          "additionalProperties": false
+        },
+        "max_delay_random": {
+          "description": "Maximum delay (at 100%) for random actions, in milliseconds",
+          "type": "integer",
+          "default": 0
+        },
+        "step_delay_random": {
+          "description": "Step size for random actions delay, in percent points",
+          "type": "number",
+          "default": 5
+        }
+      },
+      "additionalProperties": false
+    },
+    "commands": {
+      "description": "Collection of command settings.",
+      "type": "object",
+      "properties": {
+        "prefix": {
+          "description": "The character that's used to prefix chat commands (NOT action commands!)",
+          "type": "string",
+          "default": "?"
+        },
+        "mode": {
+          "description": "Determines which commands are enabled.",
+          "type": "string",
+          "default": "all",
+          "enum": [
+            "all",
+            "blacklist",
+            "whitelist",
+            "none"
+          ]
+        },
+        "blacklist": {
+          "description": "List of all blacklisted commands that can't be used.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/command_enum"
+          }
+        },
+        "whitelist": {
+          "description": "List of all whitelisted commands that are the only ones that can be used",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/command_enum"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "blacklist"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "blacklist"
+            ]
+          },
+          "else": {
+            "not": {
+              "$comment": "blacklist property should not be present when mode isn't set to blacklist",
+              "required": [
+                "blacklist"
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "whitelist"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "whitelist"
+            ]
+          },
+          "else": {
+            "not": {
+              "$comment": "whitelist property should not be present when mode isn't set to whitelist",
+              "required": [
+                "whitelist"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "operators": {
+      "description": "List of operators (privileged users with access to advanced commands)",
+      "type": "array",
+      "items": {
+        "description": "user (login) name, all lower case; special user group starting with $, optionally with channel limiter in square brackets [], i.e. $group[channel]",
+        "type": "string",
+        "default": "$broadcaster",
+        "anyOf": [
+          {
+            "$ref": "#/$defs/special_group_enum"
+          },
+          {
+            "$ref": "#/$defs/special_group_regex"
+          },
+          {
+            "$ref": "#/$defs/userlist_name"
+          }
+        ]
+      }
+    },
+    "irc": {
+      "description": "Collection of settings related to the IRC server connection",
+      "type": "object",
+      "properties": {
+        "host": {
+          "description": "Hostname/IP of the chat server",
+          "type": "string",
+          "default": "irc.chat.twitch.tv"
+        },
+        "port": {
+          "description": "Port of the chat server",
+          "type": "integer",
+          "default": 6697
+        },
+        "message_interval": {
+          "description": "Cooldown in seconds between sending non-priority messages in chat",
+          "type": "number",
+          "default": 3
+        },
+        "connection_timeout": {
+          "description": "Timeout value in seconds before canceling a connection attempt. Be aware that this value may need to be increased when attempting to join more channels than the server's rate limits allow.",
+          "type": "number",
+          "default": 10
+        },
+        "join_rate_limit_amount": {
+          "description": "Amount of channels that can be joined in one rate limit period. See also 'join_rate_limit_time'",
+          "type": "integer",
+          "default": 18
+        },
+        "join_rate_limit_time": {
+          "description": "Cooldown between joining channels if join rate limit has been reached. See also 'join_rate_limit_amount'",
+          "type": "number",
+          "default": 11
+        }
+      },
+      "additionalProperties": false
+    },
+    "tts": {
+      "description": "Collection of settings related to text-to-speech",
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "description": "Is TTS enabled?",
+          "type": "boolean",
+          "default": false
+        },
+        "voice_ids": {
+          "description": "Voice IDs to use for TTS",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "description": "Voice ID to use for TTS",
+            "type": "string",
+            "default": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Speech\\Voices\\Tokens\\TTS_MS_EN-US_DAVID_11.0"
+          }
+        },
+        "rate": {
+          "description": "Spoken words per minute",
+          "type": "integer",
+          "default": 150
+        },
+        "volume": {
+          "description": "Volume of the TTS voice (0.0 - 1.0)",
+          "type": "number",
+          "default": 1
+        },
+        "number_of_channels": {
+          "description": "Amount of channels that can play simultaneously",
+          "type": "integer",
+          "default": 10
+        },
+        "max_duration": {
+          "description": "Max duration of TTS messages in seconds",
+          "type": "number",
+          "default": 30
+        }
+      },
+      "additionalProperties": false
+    },
+    "sessionlog": {
+      "description": "Collection of settings related to storing session information for later analysis",
+      "type": "object",
+      "properties": {
+        "enable_consolelog": {
+          "description": "Store a record of all console messages?",
+          "type": "boolean",
+          "default": false
+        },
+        "enable_chatlog": {
+          "description": "Store a record of all chat messages?",
+          "type": "boolean",
+          "default": false
+        },
+        "enable_channelpointlog": {
+          "description": "Store a record of all channel point redeems?",
+          "type": "boolean",
+          "default": false
+        },
+        "enable_periodic_dumps": {
+          "description": "Dump the session log to disk periodically?",
+          "type": "boolean",
+          "default": false
+        },
+        "dumping_interval": {
+          "description": "Number of seconds between dumping the session log to disk",
+          "type": "number",
+          "default": 900
+        },
+        "counter_cap": {
+          "description": "Cap of the rolling counter for the session log file name",
+          "type": "integer",
+          "default": 2
+        }
+      },
+      "additionalProperties": false
+    },
+    "default_team_data": {
+      "$ref": "#/$defs/team_def"
+    },
+    "teams": {
+      "description": "Collection of team setting objects",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/team_def_with_name"
+      }
+    }
+  },
+  "required": [
+    "config_name",
+    "teams"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "$ref": "#/$defs/require/team_type"
+    },
+    {
+      "$ref": "#/$defs/require/team_channels"
+    },
+    {
+      "$ref": "#/$defs/require/team_channels"
+    },
+    {
+      "$ref": "#/$defs/require/team_actionset"
+    },
+    {
+      "$ref": "#/$defs/require/actionset_type"
+    },
+    {
+      "$ref": "#/$defs/require/actionset_player_index"
+    },
+    {
+      "$ref": "#/$defs/require/actionset_input_server"
+    },
+    {
+      "$ref": "#/$defs/require/input_server_type"
+    },
+    {
+      "$ref": "#/$defs/require/team_type_PredictionNumber_requires_number"
+    },
+    {
+      "$ref": "#/$defs/require/team_type_NameRegex_requires_pattern"
+    },
+    {
+      "$ref": "#/$defs/require/remote_input_server_requires_host"
+    },
+    {
+      "$ref": "#/$defs/require/remote_input_server_requires_port"
+    }
+  ],
+  "$comment": "====================================================================================",
+  "$defs": {
+    "require": {
+      "team_type": {
+        "$comment": "if 'type' is not defined in defaults, required in each team",
+        "if": {
+          "required": [
+            "default_team_data"
+          ],
+          "properties": {
+            "default_team_data": {
+              "required": [
+                "type"
+              ]
+            }
+          }
+        },
+        "then": {},
+        "else": {
+          "properties": {
+            "teams": {
+              "items": {
+                "required": [
+                  "type"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "team_type_PredictionNumber_requires_number": {
+        "if": {
+          "properties": {
+            "default_team_data": {
+              "$ref": "#/$defs/has_PredictionNumber"
+            }
+          }
+        },
+        "then": {
+          "anyOf": [
+            {
+              "properties": {
+                "teams": {
+                  "items": {
+                    "anyOf": [
+                      {
+                        "required": [
+                          "number"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "type"
+                        ],
+                        "not": {
+                          "$ref": "#/$defs/has_PredictionNumber"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "properties": {
+                "default_team_data": {
+                  "required": [
+                    "number"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "else": {
+          "anyOf": [
+            {
+              "properties": {
+                "teams": {
+                  "items": {
+                    "if": {
+                      "$ref": "#/$defs/has_PredictionNumber"
+                    },
+                    "then": {
+                      "required": [
+                        "number"
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "properties": {
+                "default_team_data": {
+                  "required": [
+                    "number"
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      "team_type_NameRegex_requires_pattern": {
+        "if": {
+          "properties": {
+            "default_team_data": {
+              "$ref": "#/$defs/has_NameRegex"
+            }
+          }
+        },
+        "then": {
+          "anyOf": [
+            {
+              "properties": {
+                "teams": {
+                  "items": {
+                    "anyOf": [
+                      {
+                        "required": [
+                          "pattern"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "type"
+                        ],
+                        "not": {
+                          "$ref": "#/$defs/has_NameRegex"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "properties": {
+                "default_team_data": {
+                  "required": [
+                    "pattern"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "else": {
+          "anyOf": [
+            {
+              "properties": {
+                "teams": {
+                  "items": {
+                    "if": {
+                      "$ref": "#/$defs/has_NameRegex"
+                    },
+                    "then": {
+                      "required": [
+                        "pattern"
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "properties": {
+                "default_team_data": {
+                  "required": [
+                    "pattern"
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      "team_channels": {
+        "$comment": "if 'channels' is not defined in defaults, required in each team",
+        "if": {
+          "required": [
+            "default_team_data"
+          ],
+          "properties": {
+            "default_team_data": {
+              "required": [
+                "channels"
+              ]
+            }
+          }
+        },
+        "then": {},
+        "else": {
+          "properties": {
+            "teams": {
+              "items": {
+                "required": [
+                  "channels"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "team_actionset": {
+        "$comment": "if 'actionset' is not defined in defaults, required in each team",
+        "if": {
+          "required": [
+            "default_team_data"
+          ],
+          "properties": {
+            "default_team_data": {
+              "required": [
+                "actionset"
+              ]
+            }
+          }
+        },
+        "then": {},
+        "else": {
+          "properties": {
+            "teams": {
+              "items": {
+                "required": [
+                  "actionset"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "actionset_type": {
+        "$comment": "if 'type' is not defined in defaults, required in each actionset",
+        "if": {
+          "required": [
+            "default_team_data"
+          ],
+          "properties": {
+            "default_team_data": {
+              "required": [
+                "actionset"
+              ],
+              "properties": {
+                "actionset": {
+                  "required": [
+                    "type"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "then": {},
+        "else": {
+          "properties": {
+            "teams": {
+              "items": {
+                "properties": {
+                  "actionset": {
+                    "required": [
+                      "type"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "actionset_player_index": {
+        "$comment": "if 'player_index' is not defined in defaults, required in each actionset",
+        "if": {
+          "required": [
+            "default_team_data"
+          ],
+          "properties": {
+            "default_team_data": {
+              "required": [
+                "actionset"
+              ],
+              "properties": {
+                "actionset": {
+                  "required": [
+                    "player_index"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "then": {},
+        "else": {
+          "properties": {
+            "teams": {
+              "items": {
+                "properties": {
+                  "actionset": {
+                    "required": [
+                      "player_index"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "actionset_input_server": {
+        "$comment": "if 'input_server' is not defined in defaults, required in each actionset",
+        "if": {
+          "required": [
+            "default_team_data"
+          ],
+          "properties": {
+            "default_team_data": {
+              "required": [
+                "actionset"
+              ],
+              "properties": {
+                "actionset": {
+                  "required": [
+                    "input_server"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "then": {},
+        "else": {
+          "properties": {
+            "teams": {
+              "items": {
+                "properties": {
+                  "actionset": {
+                    "required": [
+                      "input_server"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "input_server_type": {
+        "$comment": "if 'type' is not defined in defaults, required in each actionset",
+        "if": {
+          "required": [
+            "default_team_data"
+          ],
+          "properties": {
+            "default_team_data": {
+              "required": [
+                "actionset"
+              ],
+              "properties": {
+                "actionset": {
+                  "required": [
+                    "input_server"
+                  ],
+                  "properties": {
+                    "input_server": {
+                      "required": [
+                        "type"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "then": {},
+        "else": {
+          "properties": {
+            "teams": {
+              "items": {
+                "properties": {
+                  "actionset": {
+                    "properties": {
+                      "input_server": {
+                        "required": [
+                          "type"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "remote_input_server_requires_host": {
+        "if": {
+          "required": [
+            "default_team_data"
+          ],
+          "properties": {
+            "default_team_data": {
+              "$ref": "#/$defs/has_remote_input_server"
+            }
+          }
+        },
+        "then": {
+          "anyOf": [
+            {
+              "properties": {
+                "teams": {
+                  "items": {
+                    "anyOf": [
+                      {
+                        "$ref": "#/$defs/input_server_require_host"
+                      },
+                      {
+                        "properties": {
+                          "actionset": {
+                            "properties": {
+                              "input_server": {
+                                "required": [
+                                  "type"
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        "not": {
+                          "$ref": "#/$defs/has_remote_input_server"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "properties": {
+                "default_team_data": {
+                  "$ref": "#/$defs/input_server_require_host"
+                }
+              }
+            }
+          ]
+        },
+        "else": {
+          "anyOf": [
+            {
+              "properties": {
+                "teams": {
+                  "items": {
+                    "if": {
+                      "$ref": "#/$defs/has_remote_input_server"
+                    },
+                    "then": {
+                      "$ref": "#/$defs/input_server_require_host"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "properties": {
+                "default_team_data": {
+                  "$ref": "#/$defs/input_server_require_host"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "remote_input_server_requires_port": {
+        "if": {
+          "required": [
+            "default_team_data"
+          ],
+          "properties": {
+            "default_team_data": {
+              "$ref": "#/$defs/has_remote_input_server"
+            }
+          }
+        },
+        "then": {
+          "anyOf": [
+            {
+              "properties": {
+                "teams": {
+                  "items": {
+                    "anyOf": [
+                      {
+                        "$ref": "#/$defs/input_server_require_port"
+                      },
+                      {
+                        "properties": {
+                          "actionset": {
+                            "properties": {
+                              "input_server": {
+                                "required": [
+                                  "type"
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        "not": {
+                          "$ref": "#/$defs/has_remote_input_server"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "properties": {
+                "default_team_data": {
+                  "$ref": "#/$defs/input_server_require_port"
+                }
+              }
+            }
+          ]
+        },
+        "else": {
+          "anyOf": [
+            {
+              "properties": {
+                "teams": {
+                  "items": {
+                    "if": {
+                      "$ref": "#/$defs/has_remote_input_server"
+                    },
+                    "then": {
+                      "$ref": "#/$defs/input_server_require_port"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "properties": {
+                "default_team_data": {
+                  "$ref": "#/$defs/input_server_require_port"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "input_server_require_host": {
+      "required": [
+        "actionset"
+      ],
+      "properties": {
+        "actionset": {
+          "required": [
+            "input_server"
+          ],
+          "properties": {
+            "input_server": {
+              "required": [
+                "host"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "input_server_require_port": {
+      "required": [
+        "actionset"
+      ],
+      "properties": {
+        "actionset": {
+          "required": [
+            "input_server"
+          ],
+          "properties": {
+            "input_server": {
+              "required": [
+                "port"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "has_PredictionNumber": {
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "anyOf": [
+            {
+              "type": "string",
+              "const": "PredictionNumber"
+            },
+            {
+              "type": "array",
+              "contains": {
+                "const": "PredictionNumber"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "has_NameRegex": {
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "anyOf": [
+            {
+              "type": "string",
+              "const": "NameRegex"
+            },
+            {
+              "type": "array",
+              "contains": {
+                "const": "NameRegex"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "has_remote_input_server": {
+      "required": [
+        "actionset"
+      ],
+      "properties": {
+        "actionset": {
+          "required": [
+            "input_server"
+          ],
+          "properties": {
+            "input_server": {
+              "required": [
+                "type"
+              ],
+              "properties": {
+                "type": {
+                  "const": "remote"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "team_type_single": {
+      "description": "Type of the team object, influences how members are selected",
+      "enum": [
+        "Balancing",
+        "Default",
+        "NameRegex",
+        "None",
+        "PredictionBlue",
+        "PredictionNone",
+        "PredictionNumber",
+        "PredictionPink",
+        "RandomOnly",
+        "Whitelist"
+      ],
+      "type": "string"
+    },
+    "team_type_list": {
+      "description": "List of team types, influences how members are selected",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/team_type_single"
+      },
+      "additionalItems": false
+    },
+    "team_type": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/team_type_single"
+        },
+        {
+          "$ref": "#/$defs/team_type_list"
+        }
+      ]
+    },
+    "actionset_type": {
+      "description": "Type of the actionset object, influences how action commands are handled",
+      "type": "string",
+      "enum": [
+        "Default",
+        "Divekick_GP",
+        "Divekick_KB",
+        "Duckgame_GP",
+        "Duckgame_KB",
+        "Gamepad",
+        "JumpKing_GP",
+        "JumpKing_KB",
+        "LethalLeague_GP",
+        "LethalLeague_KB",
+        "None",
+        "Splody_GP",
+        "Splody_KB",
+        "StickFight_GP",
+        "TowerFall_GP",
+        "TowerFall_KB",
+        "TrickyTowers_GP",
+        "TrickyTowers_KB",
+        "Typewrite"
+      ]
+    },
+    "special_group_enum": {
+      "description": "special user group starting with $, i.e. $group",
+      "enum": [
+        "$broadcaster",
+        "$mods",
+        "$vips",
+        "$subs",
+        "$tier3subs",
+        "$tier2subs",
+        "$tier1subs",
+        "$partners",
+        "$founders",
+        "$staff",
+        "$prime",
+        "$turbo",
+        "$users"
+      ]
+    },
+    "special_group_regex": {
+      "description": "special user group starting with $, with channel limiter in square brackets [], i.e. $group[channel]",
+      "pattern": "^(\\$broadcaster|\\$mods|\\$vips|\\$subs|\\$tier3subs|\\$tier2subs|\\$tier1subs|\\$partners|\\$founders|\\$staff|\\$prime|\\$turbo|\\$users)(?:\\[(#?[a-zA-Z0-9_]+)\\])?$"
+    },
+    "userlist_name": {
+      "description": "user/login name, all lower case",
+      "pattern": "^[a-z0-9_]+$"
+    },
+    "command_enum": {
+      "description": "name of command (all lowercase).",
+      "type": "string",
+      "enum": [
+        "teams",
+        "myteam",
+        "yourteam",
+        "jointeam",
+        "leaveteam",
+        "howtoplay",
+        "countredeems",
+        "tts",
+        "chatgpt",
+        "assignteam",
+        "addwhitelist",
+        "removewhitelist",
+        "addblacklist",
+        "removeblacklist",
+        "clearteams",
+        "addmacro",
+        "changemacro",
+        "removemacro",
+        "reloadmacros",
+        "reloadallmacros",
+        "savesnapshot",
+        "loadsnapshot"
+      ]
+    },
+    "input_server_def": {
+      "description": "Data which determines how input is sent to the game",
+      "type": "object",
+      "properties": {
+        "type": {
+          "description": "Type of input server",
+          "type": "string",
+          "enum": [
+            "local",
+            "remote"
+          ],
+          "default": "local"
+        },
+        "host": {
+          "description": "Hostname/IP of the remote input server, required if type is remote",
+          "type": "string"
+        },
+        "port": {
+          "description": "Port of the remote input server, required if type is remote",
+          "type": "integer"
+        },
+        "encryption_key": {
+          "description": "Pre-shared key used by remote input server, empty means no encryption",
+          "type": "string",
+          "default": ""
+        },
+        "encryption_mode": {
+          "description": "Encryption algorithm used by remote input server",
+          "type": "string",
+          "default": "AES-GCM",
+          "enum": [
+            "AES-GCM"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "actionset_def": {
+      "description": "Settings for a team's assinged actionset",
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/actionset_type"
+        },
+        "doc_url": {
+          "description": "Link to a page where the available action commands are explained to users",
+          "type": "string",
+          "default": "",
+          "maxLength": 400
+        },
+        "action_prefix": {
+          "description": "Prefix of action commands in chat for this actionset",
+          "type": "string",
+          "default": "+"
+        },
+        "player_index": {
+          "description": "Identifier index, determines which keybindings/gamepad are used for this actionset",
+          "type": "integer"
+        },
+        "allow_changing_macros": {
+          "description": "Allow runtime manipulation of macros (like addMacro command)?",
+          "type": "boolean",
+          "default": false
+        },
+        "macro_file": {
+          "description": "Path of json files that contains macro data",
+          "type": "string",
+          "default": ""
+        },
+        "persistent_macros": {
+          "description": "Does changing a macro during runtime also modify the macro file?",
+          "type": "boolean",
+          "default": false
+        },
+        "input_server": {
+          "$ref": "#/$defs/input_server_def"
+        }
+      },
+      "additionalProperties": false
+    },
+    "team_def_with_name": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/team_def"
+        },
+        {
+          "required": [
+            "name"
+          ]
+        }
+      ]
+    },
+    "team_def": {
+      "description": "Collection of team setting objects",
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/team_type"
+        },
+        "name": {
+          "description": "Identifier of the team, required for certain chat commands",
+          "type": "string"
+        },
+        "queue_length": {
+          "description": "How many messages max are queued for every command cycle",
+          "type": "integer",
+          "default": 10
+        },
+        "hidden": {
+          "description": "Is this team available to everybody or just to operators?",
+          "type": "boolean",
+          "default": false
+        },
+        "joinable": {
+          "description": "Can this team be joined via chat commands?",
+          "type": "boolean",
+          "default": false
+        },
+        "leavable": {
+          "description": "Can this team be left via chat commands?",
+          "type": "boolean",
+          "default": false
+        },
+        "exclusive": {
+          "description": "Does being a member of this team exclude you from being a member in other teams?",
+          "type": "boolean",
+          "default": true
+        },
+        "use_random_inputs": {
+          "description": "Execute random commands instead of sleeping while waiting for the next action command?",
+          "type": "boolean",
+          "default": false
+        },
+        "spam_protection": {
+          "description": "Prevent users from bumping by spamming the same message",
+          "type": "boolean",
+          "default": true
+        },
+        "pattern": {
+          "description": "Regular expression pattern used in username matching, only needed for type=NameRegex, needs to match the whole username (use .* at beginning/end if necessary)",
+          "type": "string",
+          "default": ""
+        },
+        "number": {
+          "description": "Number index used for PredictionNumber Teams",
+          "type": "integer",
+          "default": 1,
+          "enum": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        },
+        "channels": {
+          "description": "List of all channels where this team should check for action commands",
+          "type": "array",
+          "items": {
+            "description": "channel name, all lower case, prefixing `#` optional",
+            "type": "string",
+            "pattern": "^#?[a-z0-9_]+$"
+          },
+          "minItems": 1
+        },
+        "user_whitelist": {
+          "description": "List of all users that are allowed to join this team regardless of inherent selection criteria",
+          "default": [],
+          "type": "array",
+          "items": {
+            "description": "List of all users that are allowed to join this team regardless of inherent selection criteria",
+            "type": "string",
+            "anyOf": [
+              {
+                "$ref": "#/$defs/special_group_enum"
+              },
+              {
+                "$ref": "#/$defs/special_group_regex"
+              },
+              {
+                "$ref": "#/$defs/userlist_name"
+              }
+            ]
+          }
+        },
+        "user_blacklist": {
+          "description": "List of all users that are NOT allowed to join this team regardless of inherent selection criteria",
+          "default": [],
+          "type": "array",
+          "items": {
+            "description": "List of all users that are NOT allowed to join this team regardless of inherent selection criteria",
+            "type": "string",
+            "anyOf": [
+              {
+                "$ref": "#/$defs/special_group_enum"
+              },
+              {
+                "$ref": "#/$defs/special_group_regex"
+              },
+              {
+                "$ref": "#/$defs/userlist_name"
+              }
+            ]
+          }
+        },
+        "actionset": {
+          "$ref": "#/$defs/actionset_def"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

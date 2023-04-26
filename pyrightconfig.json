@@ -1,0 +1,12 @@
+{
+  "exclude": [
+    "venv/*",
+    "**/__pycache__",
+    "stubs/*",
+    "build_streamchatwars.spec"
+  ],
+  "ignore": [
+    "stubs/*",
+    "build_streamchatwars.spec"
+  ]
+}

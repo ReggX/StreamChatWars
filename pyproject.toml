@@ -1,0 +1,63 @@
+[tool.pytest.ini_options]
+testpaths = "tests"
+addopts = "--cov=streamchatwars --cov-report xml:cov.xml --cov-report html:.htmlcov --cov-report term-missing  --random-order"
+filterwarnings = [
+  "ignore:.*remove loop argument:DeprecationWarning:websockets.legacy.client:480",
+  "ignore:.*remove loop argument:DeprecationWarning:websockets.legacy.protocol:203",
+  "ignore:.*There is no current event loop:DeprecationWarning:twitchAPI.pubsub:227",
+  "ignore:.*There is no current event loop:DeprecationWarning:twitchAPI.pubsub:325",
+]
+
+
+[tool.coverage.run]
+branch = true
+source = [
+  "streamchatwars",
+]
+
+
+[tool.coverage.report]
+exclude_lines = [
+  "pragma: no cover",
+  "from streamchatwars.main import main",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+  "except KeyboardInterrupt:",
+]
+
+[tool.mypy]
+strict = true
+show_error_codes = true
+ignore_missing_imports = true
+mypy_path = "$MYPY_CONFIG_FILE_DIR/streamchatwars,$MYPY_CONFIG_FILE_DIR/stubs"
+
+
+[[tool.mypy.overrides]]
+module = [
+    'irc.*',
+    'json_source_map.*',
+    'pyttsx3.*',
+    'twitchAPI.*',
+    'vgamepad.*',
+]
+ignore_errors = true
+
+
+
+[tool.isort]
+multi_line_output = 5
+line_length = 80
+wrap_length = 80
+use_parentheses = true
+indent = "  "
+lines_after_imports = 2
+include_trailing_comma = true
+balanced_wrapping = true
+force_single_line = true
+import_heading_stdlib = "native imports"
+import_heading_thirdparty = "pip imports"
+import_heading_firstparty = "local imports"
+import_heading_localfolder = "internal imports"
+extend_skip_glob = [
+  "stubs/*",
+]

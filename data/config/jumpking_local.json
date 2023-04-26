@@ -1,0 +1,51 @@
+{
+  "$schema": "../schema/config_schema.json",
+  "config_name": "Duckgame, 2 remote Keyboard players",
+  "events": {
+    "file_events": {
+      "enabled": true
+    }
+  },
+  "operators": [
+    "$broadcaster",
+    "reggx"
+  ],
+  "sessionlog": {
+    "enable_chatlog": true,
+    "enable_consolelog": true
+  },
+  "irc": {
+    "host": "irc.chat.twitch.tv",
+    "port": 6697,
+    "message_interval": 3
+  },
+  "teams": [
+    {
+      "type": "Default",
+      "name": "Chat",
+      "queue_length": 10,
+      "hidden": false,
+      "exclusive": false,
+      "use_random_inputs": true,
+      "channels": [
+        "reggx"
+      ],
+      "user_whitelist": [
+      ],
+      "user_blacklist": [
+      ],
+      "actionset": {
+        "type":"JumpKing_KB",
+        "doc_url": "+jump <time> +left <time> +right <time> +jumpleft <time> +jumpright <time>",
+        "action_prefix": "+",
+        "player_index": 0,
+        "allow_changing_macros": true,
+        "persistent_macros": true,
+        "macro_file": "data/macros/jumpking.json",
+        "input_server": {
+          "type": "local"
+        }
+      }
+    }
+  ]
+}

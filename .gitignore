@@ -1,0 +1,14 @@
+venv*/
+.venv*/
+.vscode/
+.htmlcov/
+.mypy_cache/
+.pytest_cache/
+scratch/
+__pycache__/
+build/
+dist/
+
+.coverage
+cov.xml
+*.lnk

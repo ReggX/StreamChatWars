@@ -1,0 +1,303 @@
+{
+  "$schema": "../schema/config_schema.json",
+  "config_name": "Splody for Monthly Madness",
+  "events": {
+    "file_events": {
+      "enabled": true
+    },
+    "hotkeys": {
+      "failsafe": "Shift+Backspace",
+      "accept_input": "F13",
+      "random_action": "F14",
+      "reset_teams": "F15",
+      "random_delay_plus": "F17",
+      "random_delay_minus": "F18"
+    },
+    "max_delay_random": 2000,
+    "step_delay_random": 5
+  },
+  "commands": {
+    "mode": "all"
+  },
+  "operators": [
+    "$broadcaster",
+    "reggx"
+  ],
+  "irc": {
+    "host": "irc.chat.twitch.tv",
+    "port": 6697,
+    "message_interval": 1,
+    "connection_timeout": 10,
+    "join_rate_limit_amount": 18,
+    "join_rate_limit_time": 11
+  },
+  "sessionlog": {
+    "enable_chatlog": true,
+    "enable_consolelog": true
+  },
+  "teams": [
+    {
+      "type": "RandomOnly",
+      "name": "Bots",
+      "use_random_inputs": true,
+      "hidden": true,
+      "channels": [
+        "reggx",
+        "nagzz21"
+      ],
+      "user_whitelist": [
+        "suitwo"
+      ],
+      "actionset": {
+        "type": "Splody_KB",
+        "action_prefix": "+",
+        "player_index": 0,
+        "doc_url": "https://gist.github.com/ReggX/bdfd41cf03927cab7e3ddf61b18d92ee",
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33000
+        }
+      }
+    },
+    {
+      "type": "Balancing",
+      "joinable": true,
+      "leavable": true,
+      "number": 1,
+      "name": "Bet_1",
+      "use_random_inputs": true,
+      "channels": [
+        "reggx",
+        "nagzz21"
+      ],
+      "actionset": {
+        "type": "Splody_GP",
+        "action_prefix": "+",
+        "player_index": 1,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33001
+        }
+      }
+    },
+    {
+      "type": "Balancing",
+      "joinable": true,
+      "leavable": true,
+      "number": 2,
+      "name": "Bet_2",
+      "use_random_inputs": true,
+      "channels": [
+        "reggx",
+        "nagzz21"
+      ],
+      "actionset": {
+        "type": "Splody_GP",
+        "action_prefix": "+",
+        "player_index": 2,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33002
+        }
+      }
+    },
+    {
+      "type": "Balancing",
+      "joinable": true,
+      "leavable": true,
+      "number": 3,
+      "name": "Bet_3",
+      "use_random_inputs": true,
+      "channels": [
+        "reggx",
+        "nagzz21"
+      ],
+      "actionset": {
+        "type": "Splody_GP",
+        "action_prefix": "+",
+        "player_index": 3,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33003
+        }
+      }
+    },
+    {
+      "type": "Balancing",
+      "joinable": true,
+      "leavable": true,
+      "number": 4,
+      "name": "Bet_4",
+      "use_random_inputs": true,
+      "channels": [
+        "reggx",
+        "nagzz21"
+      ],
+      "actionset": {
+        "type": "Splody_GP",
+        "action_prefix": "+",
+        "player_index": 4,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33004
+        }
+      }
+    },
+    {
+      "type": "Balancing",
+      "joinable": true,
+      "leavable": true,
+      "number": 5,
+      "name": "Bet_5",
+      "use_random_inputs": true,
+      "channels": [
+        "reggx",
+        "nagzz21"
+      ],
+      "actionset": {
+        "type": "Splody_GP",
+        "action_prefix": "+",
+        "player_index": 5,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33005
+        }
+      }
+    },
+    {
+      "type": "Balancing",
+      "joinable": true,
+      "leavable": true,
+      "number": 6,
+      "name": "Bet_6",
+      "use_random_inputs": true,
+      "channels": [
+        "reggx",
+        "nagzz21"
+      ],
+      "actionset": {
+        "type": "Splody_GP",
+        "action_prefix": "+",
+        "player_index": 6,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33006
+        }
+      }
+    },
+    {
+      "type": "Balancing",
+      "joinable": true,
+      "leavable": true,
+      "number": 7,
+      "name": "Bet_7",
+      "use_random_inputs": true,
+      "channels": [
+        "reggx",
+        "nagzz21"
+      ],
+      "actionset": {
+        "type": "Splody_GP",
+        "action_prefix": "+",
+        "player_index": 7,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33007
+        }
+      }
+    },
+    {
+      "type": "Balancing",
+      "joinable": true,
+      "leavable": true,
+      "number": 8,
+      "name": "Bet_8",
+      "use_random_inputs": true,
+      "channels": [
+        "reggx",
+        "nagzz21"
+      ],
+      "actionset": {
+        "type": "Splody_GP",
+        "action_prefix": "+",
+        "player_index": 8,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33008
+        }
+      }
+    },
+    {
+      "type": "Balancing",
+      "joinable": true,
+      "leavable": true,
+      "number": 9,
+      "name": "Bet_9",
+      "use_random_inputs": true,
+      "channels": [
+        "reggx",
+        "nagzz21"
+      ],
+      "actionset": {
+        "type": "Splody_GP",
+        "action_prefix": "+",
+        "player_index": 9,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33009
+        }
+      }
+    },
+    {
+      "type": "Balancing",
+      "joinable": true,
+      "leavable": true,
+      "number": 10,
+      "name": "Bet_10",
+      "use_random_inputs": true,
+      "channels": [
+        "reggx",
+        "nagzz21"
+      ],
+      "actionset": {
+        "type": "Splody_GP",
+        "action_prefix": "+",
+        "player_index": 10,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33010
+        }
+      }
+    },
+    {
+      "type": "PredictionNone",
+      "name": "NoBet",
+      "use_random_inputs": true,
+      "channels": [
+        "reggx",
+        "nagzz21"
+      ],
+      "actionset": {
+        "type": "Splody_GP",
+        "action_prefix": "+",
+        "player_index": 11,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33011
+        }
+      }
+    }
+  ]
+}

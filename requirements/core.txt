@@ -1,0 +1,12 @@
+# This file contains all mandatory core libs only
+colorama==0.4.6
+irc==20.1.0
+json-source-map==1.0.5
+jsonschema==4.17.3
+keyboard==0.13.5
+pycryptodomex==3.17
+pydirectinput-rgx==2.0.7
+pygame==2.3.0
+pyttsx3==2.90
+twitchAPI==3.10.0
+vgamepad==0.0.8

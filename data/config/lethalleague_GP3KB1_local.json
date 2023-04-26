@@ -1,0 +1,139 @@
+{
+  "$schema": "../schema/config_schema.json",
+  "config_name": "Lethal League, 3 Gamepads, 1 Keyboard, local",
+  "events": {
+    "file_events": {
+      "enabled": true
+    },
+    "hotkeys": {
+      "failsafe": "Shift+Backspace",
+      "accept_input": "",
+      "random_action": ""
+    },
+    "max_delay_random": 500
+  },
+  "commands": {
+    "prefix": "?",
+    "mode": "all"
+  },
+  "operators": [
+    "$broadcaster",
+    "reggx"
+  ],
+  "sessionlog": {
+    "enable_chatlog": true,
+    "enable_consolelog": true
+  },
+  "irc": {
+    "host": "irc.chat.twitch.tv",
+    "port": 6697,
+    "message_interval": 3,
+    "connection_timeout": 10,
+    "join_rate_limit_amount": 18,
+    "join_rate_limit_time": 11
+  },
+  "teams": [
+    {
+      "type": "Balancing",
+      "name": "NoFaith",
+      "queue_length": 10,
+      "hidden": false,
+      "joinable": true,
+      "leavable": true,
+      "exclusive": true,
+      "use_random_inputs": true,
+      "spam_protection": true,
+      "channels": [
+        "reggx"
+      ],
+      "user_whitelist": [],
+      "user_blacklist": [],
+      "actionset": {
+        "type": "LethalLeague_GP",
+        "doc_url": "",
+        "action_prefix": "+",
+        "player_index": 0,
+        "input_server": {
+          "type": "local"
+        }
+      }
+    },
+    {
+      "type": "Balancing",
+      "name": "Faith",
+      "queue_length": 10,
+      "hidden": false,
+      "joinable": true,
+      "leavable": true,
+      "exclusive": true,
+      "use_random_inputs": true,
+      "spam_protection": true,
+      "channels": [
+        "reggx"
+      ],
+      "user_whitelist": [],
+      "user_blacklist": [],
+      "actionset": {
+        "type": "LethalLeague_GP",
+        "doc_url": "",
+        "action_prefix": "+",
+        "player_index": 1,
+        "input_server": {
+          "type": "local"
+        }
+      }
+    },
+    {
+      "type": "RandomOnly",
+      "name": "Bots",
+      "queue_length": 10,
+      "hidden": true,
+      "joinable": false,
+      "leavable": false,
+      "exclusive": true,
+      "use_random_inputs": true,
+      "spam_protection": true,
+      "channels": [
+        "reggx"
+      ],
+      "user_whitelist": [
+        "suitwo"
+      ],
+      "user_blacklist": [],
+      "actionset": {
+        "type": "LethalLeague_KB",
+        "doc_url": "",
+        "action_prefix": "+",
+        "player_index": 0,
+        "input_server": {
+          "type": "local"
+        }
+      }
+    },
+    {
+      "type": "Balancing",
+      "name": "NoBet",
+      "queue_length": 10,
+      "hidden": false,
+      "joinable": true,
+      "leavable": true,
+      "exclusive": true,
+      "use_random_inputs": true,
+      "spam_protection": true,
+      "channels": [
+        "reggx"
+      ],
+      "user_whitelist": [],
+      "user_blacklist": [],
+      "actionset": {
+        "type": "LethalLeague_GP",
+        "doc_url": "",
+        "action_prefix": "+",
+        "player_index": 2,
+        "input_server": {
+          "type": "local"
+        }
+      }
+    }
+  ]
+}

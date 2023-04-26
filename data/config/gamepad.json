@@ -1,0 +1,39 @@
+{
+  "$schema": "../schema/config_schema.json",
+  "config_name": "Simple 1-player remote Gamepad",
+  "events": {
+    "file_events": {
+      "enabled": true
+    }
+  },
+  "operators": [
+    "$broadcaster"
+  ],
+  "irc": {
+    "host": "irc.chat.twitch.tv",
+    "port": 6697,
+    "message_interval": 3
+  },
+  "teams": [
+    {
+      "type": "Default",
+      "name": "Gamepad",
+      "queue_length": 10,
+      "hidden": false,
+      "use_random_inputs": false,
+      "channels": [
+        "reggx"
+      ],
+      "actionset": {
+        "type": "Gamepad",
+        "action_prefix": "+",
+        "player_index": 0,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.20",
+          "port": 33002
+        }
+      }
+    }
+  ]
+}

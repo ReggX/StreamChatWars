@@ -1,0 +1,78 @@
+{
+  "$schema": "../schema/config_schema.json",
+  "config_name": "Duckgame, 2 remote Gamepad players",
+  "events": {
+    "file_events": {
+      "enabled": true
+    }
+  },
+  "operators": [
+    "$broadcaster",
+    "reggx"
+  ],
+  "irc": {
+    "host": "irc.chat.twitch.tv",
+    "port": 6697,
+    "message_interval": 3
+  },
+  "sessionlog": {
+    "enable_chatlog": true,
+    "enable_consolelog": true
+  },
+  "teams": [
+    {
+      "type": "Balancing",
+      "name": "Blue",
+      "queue_length": 10,
+      "hidden": false,
+      "joinable": true,
+      "leavable": true,
+      "use_random_inputs": true,
+      "channels": [
+        "reggx"
+      ],
+      "user_whitelist": [
+      ],
+      "user_blacklist": [
+      ],
+      "actionset": {
+        "type": "Duckgame_GP",
+        "doc_url": "https://gist.github.com/ReggX/45255e112b0bce5fae591227edcdf8d6",
+        "action_prefix": "+",
+        "player_index": 0,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.20",
+          "port": 33001
+        }
+      }
+    },
+    {
+      "type": "Balancing",
+      "name": "Red",
+      "queue_length": 10,
+      "hidden": false,
+      "joinable": true,
+      "leavable": true,
+      "use_random_inputs": true,
+      "channels": [
+        "reggx"
+      ],
+      "user_whitelist": [
+      ],
+      "user_blacklist": [
+      ],
+      "actionset": {
+        "type": "Duckgame_GP",
+        "doc_url": "https://gist.github.com/ReggX/45255e112b0bce5fae591227edcdf8d6",
+        "action_prefix": "+",
+        "player_index": 1,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.20",
+          "port": 33002
+        }
+      }
+    }
+  ]
+}

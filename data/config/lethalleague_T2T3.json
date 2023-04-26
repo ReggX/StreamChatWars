@@ -1,0 +1,146 @@
+{
+  "$schema": "../schema/config_schema.json",
+  "config_name": "Lethal League for Monthly Madness",
+  "events": {
+    "file_events": {
+      "enabled": true
+    },
+    "max_delay_random": 1000,
+    "step_delay_random": 5
+  },
+  "operators": [
+    "$broadcaster",
+    "reggx"
+  ],
+  "sessionlog": {
+    "enable_chatlog": true,
+    "enable_consolelog": true
+  },
+  "irc": {
+    "host": "irc.chat.twitch.tv",
+    "port": 6697,
+    "message_interval": 1,
+    "connection_timeout": 10,
+    "join_rate_limit_amount": 18,
+    "join_rate_limit_time": 11
+  },
+  "teams": [
+    {
+      "type": "PredictionPink",
+      "name": "NoFaith",
+      "queue_length": 10,
+      "hidden": false,
+      "joinable": false,
+      "leavable": false,
+      "use_random_inputs": true,
+      "channels": [
+        "reggx",
+        "nagzz21"
+      ],
+      "user_whitelist": [
+      ],
+      "user_blacklist": [
+      ],
+      "actionset": {
+        "type": "LethalLeague_GP",
+        "doc_url": "https://gist.github.com/ReggX/cc1326b33575738c2fd86320f0276d9c",
+        "action_prefix": "+",
+        "player_index": 0,
+        "allow_changing_macros": true,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33001
+        }
+      }
+    },
+    {
+      "type": "PredictionBlue",
+      "name": "Faith",
+      "queue_length": 10,
+      "hidden": false,
+      "joinable": false,
+      "leavable": false,
+      "use_random_inputs": true,
+      "channels": [
+        "reggx",
+        "nagzz21"
+      ],
+      "user_whitelist": [
+      ],
+      "user_blacklist": [
+      ],
+      "actionset": {
+        "type": "LethalLeague_GP",
+        "doc_url": "",
+        "action_prefix": "+",
+        "player_index": 1,
+        "allow_changing_macros": true,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33002
+        }
+      }
+    },
+    {
+      "type": "RandomOnly",
+      "name": "Random",
+      "queue_length": 10,
+      "hidden": true,
+      "joinable": false,
+      "leavable": false,
+      "use_random_inputs": true,
+      "channels": [
+        "reggx",
+        "nagzz21"
+      ],
+      "user_whitelist": [
+        "suitwo"
+      ],
+      "user_blacklist": [
+      ],
+      "actionset": {
+        "type": "LethalLeague_KB",
+        "doc_url": "",
+        "action_prefix": "+",
+        "player_index": 0,
+        "allow_changing_macros": true,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33003
+        }
+      }
+    },
+    {
+      "type": "PredictionNone",
+      "name": "NoBet",
+      "queue_length": 10,
+      "hidden": false,
+      "joinable": false,
+      "leavable": false,
+      "use_random_inputs": true,
+      "channels": [
+        "reggx",
+        "nagzz21"
+      ],
+      "user_whitelist": [
+      ],
+      "user_blacklist": [
+      ],
+      "actionset": {
+        "type": "LethalLeague_GP",
+        "doc_url": "",
+        "action_prefix": "+",
+        "player_index": 2,
+        "allow_changing_macros": true,
+        "input_server": {
+          "type": "remote",
+          "host": "192.168.178.40",
+          "port": 33004
+        }
+      }
+    }
+  ]
+}

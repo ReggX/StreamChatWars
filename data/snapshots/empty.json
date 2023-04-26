@@ -1,0 +1,77 @@
+{
+  "timestamp": "2022-02-10 19:47:02.450025",
+  "teams": {
+    "blue": {
+      "members": [],
+      "whitelist": {
+        "users": [],
+        "groups": {
+          "$broadcaster": [],
+          "$mods": [],
+          "$vips": [],
+          "$subs": [],
+          "$tier3subs": [],
+          "$tier2subs": [],
+          "$tier1subs": [],
+          "$partners": [],
+          "$founders": [],
+          "$staff": [],
+          "$users": []
+        }
+      },
+      "blacklist": {
+        "users": [],
+        "groups": {
+          "$broadcaster": [],
+          "$mods": [],
+          "$vips": [],
+          "$subs": [],
+          "$tier3subs": [],
+          "$tier2subs": [],
+          "$tier1subs": [],
+          "$partners": [],
+          "$founders": [],
+          "$staff": [],
+          "$users": []
+        }
+      },
+      "macros": {}
+    },
+    "red": {
+      "members": [],
+      "whitelist": {
+        "users": [],
+        "groups": {
+          "$broadcaster": [],
+          "$mods": [],
+          "$vips": [],
+          "$subs": [],
+          "$tier3subs": [],
+          "$tier2subs": [],
+          "$tier1subs": [],
+          "$partners": [],
+          "$founders": [],
+          "$staff": [],
+          "$users": []
+        }
+      },
+      "blacklist": {
+        "users": [],
+        "groups": {
+          "$broadcaster": [],
+          "$mods": [],
+          "$vips": [],
+          "$subs": [],
+          "$tier3subs": [],
+          "$tier2subs": [],
+          "$tier1subs": [],
+          "$partners": [],
+          "$founders": [],
+          "$staff": [],
+          "$users": []
+        }
+      },
+      "macros": {}
+    }
+  }
+}
